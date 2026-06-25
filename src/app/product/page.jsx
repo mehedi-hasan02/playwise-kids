@@ -2,7 +2,7 @@ import Products from '@/components/home/Products';
 import React from 'react';
 
 export const metadata = {
-  metadataBase: new URL("https://hero-kidz-seven-theta.vercel.app/"),
+  metadataBase: new URL("https://playwisekids.vercel.app/"),
 
   title: {
     default: "Kids Learning Toys - Educational Toys for Smart Learning",
@@ -43,7 +43,7 @@ export const metadata = {
     title: "Kids Learning Toys - Educational Toys for Smart Learning",
     description:
       "Shop educational toys, learning boards, puzzles, and STEM kits that help children learn while having fun.",
-    url: "https://hero-kidz-seven-theta.vercel.app/",
+    url: "https://playwisekids.vercel.app/",
     siteName: "Kids Learning Toys",
     images: [
       {

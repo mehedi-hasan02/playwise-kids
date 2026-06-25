@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FaCartPlus, FaEye, FaStar } from "react-icons/fa";
+import CartButton from "../button/CartButton";
 
 const ProductCard = ({ product }) => {
   const { _id, title, image, price, discount, reviews, sold, ratings } =
@@ -58,7 +59,7 @@ const ProductCard = ({ product }) => {
             <FaCartPlus />
             Add Cart
           </button>
-          {/* {<CartButton product={product}/>} */}
+          {/* {<CartButton product={_id}/>} */}
 
           <Link href={`/product/${_id}`} className="btn btn-outline flex-1">
             <FaEye />
