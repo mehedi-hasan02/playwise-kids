@@ -5,7 +5,6 @@ import { getProducts } from "@/actions/server/product";
 
 const Products = async () => {
   const products = (await getProducts()) || [];
-  //   console.log(products._id)
   return (
     <div>
       <h1 className="text-center text-4xl font-bold">Our Products</h1>

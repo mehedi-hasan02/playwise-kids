@@ -6,11 +6,12 @@ import bcrypt from "bcryptjs";
 export const postUser = async (payload) => {
   const { email, password, name } = payload;
   // check payload
-  if (!email || !password) return null;
+  if (!email || !password) return false;
+
 
   // check user
   const isExist = await dbConnect(collections.USERS).findOne({ email });
-  if (isExist) return null;
+  if (isExist) return false;
 
   // create user
   const newUser = {
@@ -38,7 +39,7 @@ export const loginUser = async (payload) => {
   const user = await dbConnect(collections.USERS).findOne({ email });
   if (!user) return null;
 
-  const isMatch = await bcrypt.compare(password, user.password);
+  const isMatch = await bcrypt.compare(password, user?.password);
 
   if (isMatch) return user;
   else return null;

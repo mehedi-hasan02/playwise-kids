@@ -5,6 +5,7 @@ import Footer from "@/components/layouts/Footer";
 import localFont from "next/font/local";
 import NextAuthProvider from "@/provider/NextAuthProvider";
 import { ToastContainer } from "react-toastify";
+import ToastProvider from "@/provider/ToastProvider";
 
 const poppins = Poppins({
   weight: ["100", "200", "400", "500", "600", "700", "800"],
@@ -106,7 +107,7 @@ export default function RootLayout({ children }) {
 
           <main className="py-2 md:w-11/12 mx-auto min-h-[calc(100vh-300px)]">
             {children}
-            <ToastContainer />
+            <ToastProvider/>
           </main>
 
           <footer>

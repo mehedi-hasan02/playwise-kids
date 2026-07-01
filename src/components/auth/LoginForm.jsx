@@ -1,18 +1,36 @@
 "use client";
 
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { signIn } from "next-auth/react";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { SocialButton } from "./SocialButton";
+
+// const errorMessages = {
+//   AccessDenied: "You do not have permission to sign in.",
+//   OAuthAccountNotLinked:
+//     "That email is already registered with a different sign-in method.",
+//   default: "Something went wrong. Please try again.",
+// };
 
 const LoginForm = () => {
-    const router = useRouter()
-  const handleGoogleLogin = async () => {
-    // signIn("google");
-  };
+  const router = useRouter();
+  const params = useSearchParams();
+  const callBack = params.get("callbackUrl") || "/";
+
+  // useEffect(() => {
+  //   const error = params.get("error");
+  //   if (error) {
+  //     toast.error(errorMessages[error] || errorMessages.default);
+  //     // clean the error param out of the URL so refresh doesn't re-trigger it
+  //     const url = new URL(window.location.href);
+  //     url.searchParams.delete("error");
+  //     router.replace(url.pathname + url.search);
+  //   }
+  // }, [params, router]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,13 +43,14 @@ const LoginForm = () => {
       email,
       password,
       redirect: false,
+      callbackUrl: params.get("callbackUrl") || "/",
     });
 
-    if(!result.ok){
-        Swal.fire("Error", "Email Password not Match", "error")
-    }else{
-        toast.success("Login successful!")
-        router.push("/")
+    if (!result.ok) {
+      Swal.fire("Error", "Email Password not Match", "error");
+    } else {
+      toast.success("Login successful!");
+      router.push(callBack);
     }
   };
 
@@ -92,19 +111,12 @@ const LoginForm = () => {
 
           <div className="divider">OR</div>
 
-          {/* Google Login */}
-          <button
-            onClick={handleGoogleLogin}
-            className="btn btn-outline w-full"
-          >
-            <FcGoogle size={22} />
-            Continue with Google
-          </button>
+          <SocialButton />
 
           <p className="text-center mt-4">
             Don't have an account?{" "}
             <Link
-              href="/register"
+              href={`/register?callbackUrl=${callBack}`}
               className="text-primary font-semibold hover:underline"
             >
               Register

@@ -5,6 +5,7 @@ import { ObjectId } from "mongodb";
 
 export const getProducts = async () => {
   const products = await dbConnect(collections.PRODUCTS).find().toArray();
+  // console.log(products)
   return products;
 };
 

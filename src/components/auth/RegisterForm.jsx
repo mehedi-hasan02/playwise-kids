@@ -2,12 +2,16 @@
 
 import { postUser } from "@/actions/server/auth";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 import { FcGoogle } from "react-icons/fc";
+import { SocialButton } from "./SocialButton";
+import { toast } from "react-toastify";
 
 const RegisterForm = () => {
-    const router = useRouter()
+  const router = useRouter();
+  const params = useSearchParams()
+  const callback = params.get("callbackUrl") || "/";
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -24,19 +28,18 @@ const RegisterForm = () => {
       password,
     };
 
-    const result = await postUser(user)
+    const result = await postUser(user);
 
-    if(result.acknowledged){
-        alert("Successfull")
-        router.push('/login')
+    if (result.acknowledged) {
+      toast.success("Register successful!");
+      router.push("/login");
+    }else{
+      toast.success("Please Try Again");
     }
 
     // Registration logic here
   };
 
-  const handleGoogleLogin = async () => {
-    // signIn("google");
-  };
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4 py-10">
@@ -103,18 +106,19 @@ const RegisterForm = () => {
           <div className="divider">OR</div>
 
           {/* Google Login */}
-          <button
+          {/* <button
             onClick={handleGoogleLogin}
             className="btn btn-outline w-full"
           >
             <FcGoogle size={22} />
             Continue with Google
-          </button>
+          </button> */}
+          <SocialButton />
 
           <p className="text-center mt-4">
             Already have an account?{" "}
             <Link
-              href="/login"
+              href={`/login?callbackUrl=${callback}`}
               className="text-primary font-semibold hover:underline"
             >
               Sign In

@@ -55,11 +55,11 @@ const ProductCard = ({ product }) => {
         </div>
 
         <div className="card-actions mt-auto pt-3">
-          <button className="btn btn-primary flex-1">
+          {/* <button className="btn btn-primary flex-1">
             <FaCartPlus />
             Add Cart
-          </button>
-          {/* {<CartButton product={_id}/>} */}
+          </button> */}
+          {<CartButton product={{ ...product, _id: _id.toString() }} />}
 
           <Link href={`/product/${_id}`} className="btn btn-outline flex-1">
             <FaEye />
