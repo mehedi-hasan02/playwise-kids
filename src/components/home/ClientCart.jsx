@@ -2,6 +2,7 @@
 
 import React, { useMemo, useState } from "react";
 import CartItem from "../cards/CartItem";
+import Link from "next/link";
 
 const ClientCart = ({ cartItem = [] }) => {
   const [items, setItems] = useState(cartItem);
@@ -118,12 +119,13 @@ const ClientCart = ({ cartItem = [] }) => {
               <span>৳ {totalPrice.toFixed(2)}</span>
             </div>
 
-            <button
+            <Link
+              href={"/checkout"}
               className="btn btn-primary w-full mt-5"
               disabled={items.length === 0}
             >
               Confirm Order
-            </button>
+            </Link>
           </div>
         </div>
       </div>
